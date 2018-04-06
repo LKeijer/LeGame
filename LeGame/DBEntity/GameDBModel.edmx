@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GameAlphaDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CharacterStats">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurrentHP" Type="int" Nullable="false" />
+          <Property Name="MaxHP" Type="int" Nullable="false" />
+          <Property Name="Strenght" Type="int" Nullable="false" />
+          <Property Name="Improvisation" Type="int" Nullable="false" />
+          <Property Name="Speed" Type="int" Nullable="false" />
+          <Property Name="Intelligence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inventories">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="int" Nullable="false" />
+          <Property Name="ItemSlot1" Type="int" />
+          <Property Name="ItemSlot2" Type="int" />
+          <Property Name="ItemSlot3" Type="int" />
+          <Property Name="ItemSlot4" Type="int" />
+          <Property Name="ItemSlot5" Type="int" />
+          <Property Name="ItemSlot6" Type="int" />
+          <Property Name="ItemSlot7" Type="int" />
+          <Property Name="ItemSlot8" Type="int" />
+          <Property Name="ItemSlot9" Type="int" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ItemClass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemWeight" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemValue" Type="money" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CharacterName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="InventoryID" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CurrentHP" Type="int" Nullable="false" />
+          <Property Name="MaxHP" Type="int" Nullable="false" />
+          <Property Name="Strenght" Type="int" Nullable="false" />
+          <Property Name="Improvisation" Type="int" Nullable="false" />
+          <Property Name="Speed" Type="int" Nullable="false" />
+          <Property Name="Intelligence" Type="int" Nullable="false" />
+          <Property Name="MaxWeight" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CharacterStats_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="CharacterStats" Type="Self.CharacterStats" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CharacterStats">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Inventories">
+          <End Role="Inventories" Type="Self.Inventories" Multiplicity="1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inventories">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="InventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GameAlphaDataBaseModelStoreContainer">
+          <EntitySet Name="CharacterStats" EntityType="Self.CharacterStats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventories" EntityType="Self.Inventories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CharacterStats_Players" Association="Self.FK_CharacterStats_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="CharacterStats" EntitySet="CharacterStats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Inventories" Association="Self.FK_Players_Inventories">
+            <End Role="Inventories" EntitySet="Inventories" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GameAlphaDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="Int32" Nullable="false" />
+          <Property Name="ItemSlot1" Type="Int32" />
+          <Property Name="ItemSlot2" Type="Int32" />
+          <Property Name="ItemSlot3" Type="Int32" />
+          <Property Name="ItemSlot4" Type="Int32" />
+          <Property Name="ItemSlot5" Type="Int32" />
+          <Property Name="ItemSlot6" Type="Int32" />
+          <Property Name="ItemSlot7" Type="Int32" />
+          <Property Name="ItemSlot8" Type="Int32" />
+          <Property Name="ItemSlot9" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Players_Inventories" FromRole="Inventories" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ItemClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ItemWeight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemValue" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CharacterName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="InventoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Inventory" Relationship="Self.FK_Players_Inventories" FromRole="Players" ToRole="Inventories" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CharacterStat" Relationship="GameAlphaDataBaseModel.FK_CharacterStats_Players" FromRole="Player" ToRole="CharacterStat" />
+          <Property Name="CurrentHP" Type="Int32" Nullable="false" />
+          <Property Name="MaxHP" Type="Int32" Nullable="false" />
+          <Property Name="Strenght" Type="Int32" Nullable="false" />
+          <Property Name="Improvisation" Type="Int32" Nullable="false" />
+          <Property Name="Speed" Type="Int32" Nullable="false" />
+          <Property Name="Intelligence" Type="Int32" Nullable="false" />
+          <Property Name="MaxWeight" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Players_Inventories">
+          <End Role="Inventories" Type="Self.Inventory" Multiplicity="1" />
+          <End Role="Players" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inventories">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="InventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GameDataBase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <AssociationSet Name="FK_Players_Inventories" Association="Self.FK_Players_Inventories">
+            <End Role="Inventories" EntitySet="Inventories" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <EntitySet Name="CharacterStats" EntityType="GameAlphaDataBaseModel.CharacterStat" />
+          <AssociationSet Name="FK_CharacterStats_Players" Association="GameAlphaDataBaseModel.FK_CharacterStats_Players">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="CharacterStat" EntitySet="CharacterStats" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CharacterStat">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrentHP" Type="Int32" Nullable="false" />
+          <Property Name="MaxHP" Type="Int32" Nullable="false" />
+          <Property Name="Strenght" Type="Int32" Nullable="false" />
+          <Property Name="Improvisation" Type="Int32" Nullable="false" />
+          <Property Name="Speed" Type="Int32" Nullable="false" />
+          <Property Name="Intelligence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="GameAlphaDataBaseModel.FK_CharacterStats_Players" FromRole="CharacterStat" ToRole="Player" />
+        </EntityType>
+        <Association Name="FK_CharacterStats_Players">
+          <End Type="GameAlphaDataBaseModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="GameAlphaDataBaseModel.CharacterStat" Role="CharacterStat" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CharacterStat">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GameAlphaDataBaseModelStoreContainer" CdmEntityContainer="GameDataBase">
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="GameAlphaDataBaseModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventories">
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="ItemSlot1" ColumnName="ItemSlot1" />
+                <ScalarProperty Name="ItemSlot2" ColumnName="ItemSlot2" />
+                <ScalarProperty Name="ItemSlot3" ColumnName="ItemSlot3" />
+                <ScalarProperty Name="ItemSlot4" ColumnName="ItemSlot4" />
+                <ScalarProperty Name="ItemSlot5" ColumnName="ItemSlot5" />
+                <ScalarProperty Name="ItemSlot6" ColumnName="ItemSlot6" />
+                <ScalarProperty Name="ItemSlot7" ColumnName="ItemSlot7" />
+                <ScalarProperty Name="ItemSlot8" ColumnName="ItemSlot8" />
+                <ScalarProperty Name="ItemSlot9" ColumnName="ItemSlot9" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="GameAlphaDataBaseModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemClass" ColumnName="ItemClass" />
+                <ScalarProperty Name="ItemWeight" ColumnName="ItemWeight" />
+                <ScalarProperty Name="ItemValue" ColumnName="ItemValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="GameAlphaDataBaseModel.Player">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="MaxWeight" ColumnName="MaxWeight" />
+                <ScalarProperty Name="Intelligence" ColumnName="Intelligence" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="Improvisation" ColumnName="Improvisation" />
+                <ScalarProperty Name="Strenght" ColumnName="Strenght" />
+                <ScalarProperty Name="MaxHP" ColumnName="MaxHP" />
+                <ScalarProperty Name="CurrentHP" ColumnName="CurrentHP" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CharacterName" ColumnName="CharacterName" />
+                <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CharacterStats">
+            <EntityTypeMapping TypeName="GameAlphaDataBaseModel.CharacterStat">
+              <MappingFragment StoreEntitySet="CharacterStats">
+                <ScalarProperty Name="Intelligence" ColumnName="Intelligence" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="Improvisation" ColumnName="Improvisation" />
+                <ScalarProperty Name="Strenght" ColumnName="Strenght" />
+                <ScalarProperty Name="MaxHP" ColumnName="MaxHP" />
+                <ScalarProperty Name="CurrentHP" ColumnName="CurrentHP" />
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
